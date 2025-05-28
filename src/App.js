@@ -141,10 +141,17 @@ const App = observer(class App extends Component {
     const {bgs, fgs, bird, pipes} = this.props.store
     const { currentstate } = this.props.game;
 
-    const style = {
-      width: width,
-      height: height
-    }
+  const style = {
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  width: '100vw',
+  height: '100vh',
+  overflow: 'hidden',
+  background: '#70C5CF' // ✅ Sky Blue
+}
+
+
 
     return (
       <div className="App" id="fakingcanvas" style={style}>
