@@ -96,12 +96,15 @@ const Gameover = observer(
 
 export const OK = observer(
   class OK extends Component {
-
-  render = () => {
-      return <SpriteWrapper gameSprite={{cx: width/2 - 40, cy: height-340}} onClickHandler={rungame} > {_ok_} </SpriteWrapper>;
+    render = () => {
+      return (
+        <div className="ok-button-absolute" onClick={rungame}>
+          {_ok_}
+        </div>
+      );
+    }
   }
-
-})
+);
 
 export const Splash = observer(
   class Splash extends Component {
@@ -141,28 +144,22 @@ const App = observer(class App extends Component {
     const {bgs, fgs, bird, pipes} = this.props.store
     const { currentstate } = this.props.game;
 
-  const style = {
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  width: '100vw',
-  height: '100vh',
-  overflow: 'hidden',
-  background: '#70C5CF' // ✅ Sky Blue
-}
-
-
-
     return (
-      <div className="App" id="fakingcanvas" style={style}>
-      { bgs.map( (bg) => ( <Bg bg={bg} key={bg.id} /> )     )}
-      { pipes.map( (pipe) => (  <Pipe pipe={pipe} key={pipe.id} /> )   )}
-      <Bird bird={bird} />
-      { (currentstate === states.Score) ? <Gameover /> : null }
-      { (currentstate === states.Score) ? <OK /> : null }
-      { (currentstate === states.Splash) ? <Splash /> : null }
-      { (currentstate === states.Splash) ? <Ready /> : null }
-      { fgs.map( (fg) => ( <Fg fg={fg} key={fg.id} /> )     )}
+      <div style={{position: "relative", width: 400, height: 598}}>
+        <div className="App" id="fakingcanvas">
+          { bgs.map( (bg) => ( <Bg bg={bg} key={bg.id} /> )     )}
+          { pipes.map( (pipe) => (  <Pipe pipe={pipe} key={pipe.id} /> )   )}
+          <Bird bird={bird} />
+          { (currentstate === states.Splash) ? <Splash /> : null }
+          { (currentstate === states.Splash) ? <Ready /> : null }
+          { fgs.map( (fg) => ( <Fg fg={fg} key={fg.id} /> )     )}
+        </div>
+        { currentstate === states.Score ? (
+          <div className="gameover-ok-container">
+            <div className="gameover-image">{gameover}</div>
+            <div className="ok-button" onClick={rungame}>{_ok_}</div>
+          </div>
+        ) : null }
       </div>
     );
   }
