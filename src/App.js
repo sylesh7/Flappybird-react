@@ -5,6 +5,17 @@ import {bg,fg, bird0, bird1, bird2, pipeN, pipeS, gameover, _ok_, splash, ready,
 import {width, height} from './common/common';
 import { observer} from 'mobx-react';
 import {rungame, states} from './store/store';
+import startBtn from './res/start.png';
+import zero from './res/numbers/zero.png';
+import one from './res/numbers/one.png';
+import two from './res/numbers/two.png';
+import three from './res/numbers/three.png';
+import four from './res/numbers/four.png';
+import five from './res/numbers/five.png';
+import six from './res/numbers/six.png';
+import seven from './res/numbers/seven.png';
+import eight from './res/numbers/eight.png';
+import nine from './res/numbers/nine.png';
 
 const SpriteWrapper = observer(class SpriteWrapper extends Component {
 
@@ -115,6 +126,21 @@ export const Splash = observer(
 
 })
 
+const StartButton = () => (
+  <div style={{
+    marginTop: 220,
+    marginLeft:220,
+    display: 'flex',
+    justifyContent: 'center',
+    pointerEvents: 'auto',
+    cursor: 'pointer',
+  }}
+    onClick={rungame}
+  >
+    <img src={startBtn} alt="Start" style={{width: 80, height: 'auto'}} />
+  </div>
+);
+
 export const ReadyAndTap = observer(
   class ReadyAndTap extends Component {
     render = () => {
@@ -132,12 +158,43 @@ export const ReadyAndTap = observer(
         }}>
           <SpriteWrapper gameSprite={{cx: 400/2 - 87, cy: -40}}>{ready}</SpriteWrapper>
           <div style={{height: 16}} />
-          <SpriteWrapper gameSprite={{cx: 400/2 - 89.25, cy: 0}}>{tap}</SpriteWrapper>
+          <SpriteWrapper gameSprite={{cx: 400/2 - 89.25, cy: 20}}>{tap}</SpriteWrapper>
+          <StartButton />
         </div>
       );
     }
   }
 );
+
+const ScoreDisplay = observer(({ score }) => {
+  const digits = String(score).split('').map(Number);
+  const numberImages = [zero, one, two, three, four, five, six, seven, eight, nine];
+  
+  return (
+    <div style={{
+      position: 'absolute',
+      top: 20,
+      right: 20,
+      zIndex: 9999,
+      background: 'transparent',
+      pointerEvents: 'none',
+      filter: 'drop-shadow(0 0 2px rgba(0,0,0,0.5))'
+    }}>
+      {digits.map((d, i) => (
+        <img 
+          key={i} 
+          src={numberImages[d]} 
+          alt={d.toString()} 
+          style={{
+            width: '24px',
+            height: '36px',
+            marginLeft: i === 0 ? 0 : '2px'
+          }}
+        />
+      ))}
+    </div>
+  );
+});
 
 const App = observer(class App extends Component {
   componentDidMount() {
@@ -160,14 +217,15 @@ const App = observer(class App extends Component {
     const { currentstate } = this.props.game;
 
     return (
-      <div style={{position: "relative", width: 400, height: 618}}>
-        <div className="App" id="fakingcanvas">
+      <div style={{position: "relative", width: 400, height: 650, top: 0}}>
+        <div className="App" id="fakingcanvas" style={{top: 0}}>
           { bgs.map( (bg) => ( <Bg bg={bg} key={bg.id} /> )     )}
           { pipes.map( (pipe) => (  <Pipe pipe={pipe} key={pipe.id} /> )   )}
           <Bird bird={bird} />
           { (currentstate === states.Splash) ? <Splash /> : null }
           { (currentstate === states.Splash) ? <ReadyAndTap /> : null }
           { fgs.map( (fg) => ( <Fg fg={fg} key={fg.id} /> )     )}
+          { (currentstate === states.Game || currentstate === states.Score) ? <ScoreDisplay score={this.props.store.score} /> : null }
         </div>
         { currentstate === states.Score ? (
           <div className="gameover-ok-container">

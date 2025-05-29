@@ -28,6 +28,7 @@ export const store = {
   bgs: [ bg1, bg2 ],
   fgs: [ fg1, fg2 ],
   pipes: observable([]), //initialize with empty pipe
+  score: 0,
 }
 
 function guid() {
@@ -91,7 +92,7 @@ const updatePipe = function() {
     )
   }
 
-  store.pipes.forEach( (p) => {
+  store.pipes.forEach( (p, i) => {
     const bird = store.bird
     var cx = Math.min(Math.max(bird.cx + bird_w/2 , p.cx), p.cx + pipe_w);
     var cy = Math.min(Math.max(bird.cy + bird_h/2, p.cy), p.cy + pipe_h);
@@ -113,6 +114,7 @@ const updatePipe = function() {
     //If pipe continue to move out of spaces
     if (p.cx < -pipe_w) {
       store.pipes.splice(0, 2); //remove first 2 pipe
+      store.score += 1; // increment score when a pair of pipes is passed
     }
 
   })
@@ -130,9 +132,8 @@ export const rungame = action(function() {
     store.fgpos = 0
     store.frames = 1
     store.pipes = observable([])  //Initalize to empty empty on game start
-
+    store.score = 0 // reset score
     game.currentstate= states.Game
-
 
 })
 
