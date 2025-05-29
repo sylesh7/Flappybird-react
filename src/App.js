@@ -17,6 +17,7 @@ import seven from './res/numbers/seven.png';
 import eight from './res/numbers/eight.png';
 import nine from './res/numbers/nine.png';
 import menuBtn from './res/menu.png';
+//ITs sucode
 
 const SpriteWrapper = observer(class SpriteWrapper extends Component {
 
