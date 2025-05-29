@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 //import logo from './logo.svg';
 import './App.css';
-import {bg,fg, bird0, bird1, bird2, pipeN, pipeS, gameover, _ok_, splash, ready, tap} from './common/Sprite';
+import {bg,fg, bird0, bird1, bird2, pipeN, pipeS, gameover, _ok_, splash, ready, tap, menu} from './common/Sprite';
 import {width, height} from './common/common';
 import { observer} from 'mobx-react';
 import {rungame, states} from './store/store';
@@ -16,6 +16,7 @@ import six from './res/numbers/six.png';
 import seven from './res/numbers/seven.png';
 import eight from './res/numbers/eight.png';
 import nine from './res/numbers/nine.png';
+import menuBtn from './res/menu.png';
 
 const SpriteWrapper = observer(class SpriteWrapper extends Component {
 
@@ -196,6 +197,28 @@ const ScoreDisplay = observer(({ score }) => {
   );
 });
 
+const MenuButton = observer(() => {
+  return (
+    <div style={{
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      zIndex: 9999,
+      cursor: 'pointer',
+      pointerEvents: 'auto',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginTop:-300,
+      marginLeft:-150,
+    }}>
+      {menu}
+    </div>
+  );
+});
+
+
 const App = observer(class App extends Component {
   componentDidMount() {
 
@@ -226,6 +249,7 @@ const App = observer(class App extends Component {
           { (currentstate === states.Splash) ? <ReadyAndTap /> : null }
           { fgs.map( (fg) => ( <Fg fg={fg} key={fg.id} /> )     )}
           { (currentstate === states.Game || currentstate === states.Score) ? <ScoreDisplay score={this.props.store.score} /> : null }
+          { (currentstate === states.Game) ? <MenuButton /> : null }
         </div>
         { currentstate === states.Score ? (
           <div className="gameover-ok-container">

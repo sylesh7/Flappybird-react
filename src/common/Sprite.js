@@ -119,6 +119,30 @@ export const tap = Sprite({
   height: 50
 })
 
+export const menu = Sprite({
+  filename: sheet,
+  x: 119,
+  y: 177,
+  width: 40,
+  height: 14
+})
+
+export const pause = Sprite({
+  filename: sheet,
+  x: 119,
+  y: 191,
+  width: 40,
+  height: 14
+})
+
+export const resume = Sprite({
+  filename: sheet,
+  x: 119,
+  y: 205,
+  width: 40,
+  height: 14
+})
+
 export const bg_h = bg.props['data-h']
 export const bg_w = bg.props['data-w']
 export const fg_h = fg.props['data-h']
