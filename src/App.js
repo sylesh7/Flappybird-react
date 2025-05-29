@@ -241,26 +241,28 @@ const App = observer(class App extends Component {
     const { currentstate } = this.props.game;
 
     return (
-      <div style={{position: "relative", width: 400, height: 650, top: 0}}>
-        <div className="App" id="fakingcanvas" style={{top: 0}}>
-          { bgs.map( (bg) => ( <Bg bg={bg} key={bg.id} /> )     )}
-          { pipes.map( (pipe) => (  <Pipe pipe={pipe} key={pipe.id} /> )   )}
-          <Bird bird={bird} />
-          { (currentstate === states.Splash) ? <Splash /> : null }
-          { (currentstate === states.Splash) ? <ReadyAndTap /> : null }
-          { fgs.map( (fg) => ( <Fg fg={fg} key={fg.id} /> )     )}
-          { (currentstate === states.Game || currentstate === states.Score) ? <ScoreDisplay score={this.props.store.score} /> : null }
-          { (currentstate === states.Game) ? <MenuButton /> : null }
-        </div>
-        { currentstate === states.Score ? (
-          <div className="gameover-ok-container">
-            <div className="gameover-image">{gameover}</div>
-            <div className="ok-button" onClick={rungame}>{_ok_}</div>
+      <div className="canvas-wrapper">
+        <div className="game-title">Flappy Bird</div>
+        <div style={{ position: "relative", width: 400, height: 618 }}>
+          <div className="App" id="fakingcanvas">
+            {bgs.map(bg => <Bg bg={bg} key={bg.id} />)}
+            {pipes.map(pipe => <Pipe pipe={pipe} key={pipe.id} />)}
+            <Bird bird={bird} />
+            {currentstate === states.Splash && <Splash />}
+            {currentstate === states.Splash && <ReadyAndTap />}
+            {fgs.map(fg => <Fg fg={fg} key={fg.id} />)}
           </div>
-        ) : null }
+          {currentstate === states.Score && (
+            <div className="gameover-ok-container">
+              <div className="gameover-image">{gameover}</div>
+              <div className="ok-button" onClick={rungame}>{_ok_}</div>
+            </div>
+          )}
+        </div>
       </div>
     );
   }
-})
+});
 
-export default App
+export default App;
+

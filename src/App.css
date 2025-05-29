@@ -5,6 +5,29 @@ body, html {
     height: 100vh;
     overflow: hidden; /* Prevent scrolling */
 }
+.canvas-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #70c5ce, #ffffff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.game-title {
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  font-size: 42px;
+  font-weight: 900;
+  font-family: 'Press Start 2P', cursive, sans-serif;
+  color: #fff;
+  text-shadow: 3px 3px #000;
+  z-index: 10;
+  user-select: none;
+}
+
 
 #root {
     display: flex;
