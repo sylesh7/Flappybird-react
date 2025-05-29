@@ -111,6 +111,14 @@ export const ready = Sprite({
   height: 22
 })
 
+export const tap = Sprite({
+  filename: sheet,
+  x: 0,
+  y: 114,
+  width: 58.5,
+  height: 50
+})
+
 export const bg_h = bg.props['data-h']
 export const bg_w = bg.props['data-w']
 export const fg_h = fg.props['data-h']

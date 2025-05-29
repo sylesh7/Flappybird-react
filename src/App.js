@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 //import logo from './logo.svg';
 import './App.css';
-import {bg,fg, bird0, bird1, bird2, pipeN, pipeS, gameover, _ok_, splash, ready} from './common/Sprite';
+import {bg,fg, bird0, bird1, bird2, pipeN, pipeS, gameover, _ok_, splash, ready, tap} from './common/Sprite';
 import {width, height} from './common/common';
 import { observer} from 'mobx-react';
 import {rungame, states} from './store/store';
@@ -115,14 +115,29 @@ export const Splash = observer(
 
 })
 
-export const Ready = observer(
-  class Ready extends Component {
-
-  render = () => {
-      return <SpriteWrapper gameSprite={{cx: width/2 - 87, cy: height-380}}> {ready} </SpriteWrapper>;
+export const ReadyAndTap = observer(
+  class ReadyAndTap extends Component {
+    render = () => {
+      return (
+        <div style={{
+          position: 'absolute',
+          left: '22%',
+          top: '45%',
+          transform: 'translate(-50%, -50%)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          pointerEvents: 'none',
+          zIndex: 5
+        }}>
+          <SpriteWrapper gameSprite={{cx: 400/2 - 87, cy: -40}}>{ready}</SpriteWrapper>
+          <div style={{height: 16}} />
+          <SpriteWrapper gameSprite={{cx: 400/2 - 89.25, cy: 0}}>{tap}</SpriteWrapper>
+        </div>
+      );
+    }
   }
-
-})
+);
 
 const App = observer(class App extends Component {
   componentDidMount() {
@@ -145,13 +160,13 @@ const App = observer(class App extends Component {
     const { currentstate } = this.props.game;
 
     return (
-      <div style={{position: "relative", width: 400, height: 598}}>
+      <div style={{position: "relative", width: 400, height: 618}}>
         <div className="App" id="fakingcanvas">
           { bgs.map( (bg) => ( <Bg bg={bg} key={bg.id} /> )     )}
           { pipes.map( (pipe) => (  <Pipe pipe={pipe} key={pipe.id} /> )   )}
           <Bird bird={bird} />
           { (currentstate === states.Splash) ? <Splash /> : null }
-          { (currentstate === states.Splash) ? <Ready /> : null }
+          { (currentstate === states.Splash) ? <ReadyAndTap /> : null }
           { fgs.map( (fg) => ( <Fg fg={fg} key={fg.id} /> )     )}
         </div>
         { currentstate === states.Score ? (
