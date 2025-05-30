@@ -152,17 +152,3 @@ export const bird_w = bird0.props['data-w'] //all the bird maintain same width
 export const pipe_h = pipeN.props['data-h'] //both pipe north and south are same height
 export const pipe_w = pipeN.props['data-w'] //both pipe north and south are same width
 
-export const NumberSprite = ({ digit }) => {
-  // Each digit is 24x36px, arranged horizontally
-  const x = digit * 24;
-  return (
-    <div style={{
-      width: 24,
-      height: 36,
-      backgroundImage: `url(${numbersPng})`,
-      backgroundPosition: `${-x}px 0`,
-      backgroundSize: '240px 36px', // 10 digits * 24px
-      display: 'inline-block',
-    }} />
-  );
-};
