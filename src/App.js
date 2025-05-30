@@ -355,8 +355,7 @@
           backgroundColor: "#70C5CF",
           border: "5px solid #FFD700",
           borderRadius: "15px",
-          boxShadow: "0 0 20px rgba(0,0,0,0.5)",
-          overflow: "hidden"
+          overflow: "hidden"  // Removed boxShadow property
         }}>
           <div className="App" id="fakingcanvas" style={{top: 0}}>
             {bgs.map((bg) => (<Bg bg={bg} key={bg.id} />))}
@@ -384,5 +383,4 @@
     );
   }
 })
-
   export default App
