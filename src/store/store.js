@@ -30,6 +30,7 @@ export const store = {
   fgs: [ fg1, fg2 ],
   pipes: observable([]), //initialize with empty pipe
   score: 0,
+  highestScore: 0, // Track highest score for coin display
 }
 
 function guid() {

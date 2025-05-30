@@ -19,6 +19,10 @@ import seven from './res/numbers/seven.png';
 import eight from './res/numbers/eight.png';
 import nine from './res/numbers/nine.png';
 import titleImg from './res/title.png';
+import normalcoin from './res/normalcoin.png';
+import bronzecoin from './res/bronzecoin.png';
+import silvercoin from './res/silvercoin.png';
+import goldcoin from './res/goldcoin.png';
 //ITs sucode
 
 const SpriteWrapper = observer(class SpriteWrapper extends Component {
@@ -249,6 +253,42 @@ const PauseButton = observer(() => {
   );
 });
 
+const CoinDisplay = observer(({ score }) => {
+  let coinImage = null;
+  
+  if (score >= 30) {
+    coinImage = goldcoin;
+  } else if (score >= 20) {
+    coinImage = silvercoin;
+  } else if (score >= 10) {
+    coinImage = bronzecoin;
+  } else if (score >= 5) {
+    coinImage = normalcoin;
+  }
+
+  if (!coinImage) return null;
+
+  return (
+    <div style={{
+      position: 'absolute',
+      top: 70,
+      right: 17,
+      zIndex: 9999,
+      background: 'transparent',
+      pointerEvents: 'none',
+    }}>
+      <img 
+        src={coinImage} 
+        alt="Coin" 
+        style={{
+          width: '30px',
+          height: '30px',
+        }}
+      />
+    </div>
+  );
+});
+
 const App = observer(class App extends Component {
   componentDidMount() {
 
@@ -280,6 +320,7 @@ const App = observer(class App extends Component {
           { (currentstate === states.Splash) ? <ReadyAndTap /> : null }
           { fgs.map( (fg) => ( <Fg fg={fg} key={fg.id} /> )     )}
           { (currentstate === states.Game || currentstate === states.Score) ? <ScoreDisplay score={this.props.store.score} /> : null }
+          { (currentstate === states.Game || currentstate === states.Score) ? <CoinDisplay score={this.props.store.score} /> : null }
           { currentstate === states.Game ? <PauseButton /> : null }
         </div>
         { currentstate === states.Score ? (
