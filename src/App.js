@@ -130,6 +130,7 @@ export const Splash = observer(
 })
 
 const Title =  () =>(
+
   <div style={{
     marginTop: -290,
     marginLeft:-0.5,
@@ -145,7 +146,6 @@ const Title =  () =>(
   </div>
 );
 
-    
 
 const StartButton = () => (
   <div style={{
