@@ -130,19 +130,22 @@ export const Splash = observer(
 })
 
 const Title =  () =>(
-        <div style={{
-          marginTop: -290,
-          marginLeft:-0.5,
-          marginRight:-40,
-          display: 'flex',
-          justifyContent: 'center',
-          pointerEvents: 'auto',
-          cursor: 'pointer',
-        }}>
-          <img src={titleImg} alt="Flappy Bird" style={{width: 2400, height: 'auto'}} />
-        </div>
-      );
-    
+
+  <div style={{
+    marginTop: -290,
+    marginLeft:-0.5,
+    marginRight:-40,
+    display: 'flex',
+    justifyContent: 'center',
+    pointerEvents: 'auto',
+    cursor: 'pointer',
+    position: 'relative',
+    zIndex: 9999
+  }}>
+    <img src={titleImg} alt="Flappy Bird" style={{width: 2400, height: 'auto'}} />
+  </div>
+);
+
 
 const StartButton = () => (
   <div style={{
