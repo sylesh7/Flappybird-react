@@ -18,7 +18,8 @@ export const states = {
 
 //Game state
 export const game = observable({
-    currentstate:0,
+    currentstate: 0,
+    isPaused: false,
 })
 
 export const store = {
@@ -139,21 +140,28 @@ export const rungame = action(function() {
         store.pipes = observable([])  //Initalize to empty empty on game start
         store.score = 0 // reset score
         game.currentstate = states.Game
+        game.isPaused = false
+    }
+})
+
+export const togglePause = action(function() {
+    if (game.currentstate === states.Game) {
+        game.isPaused = !game.isPaused;
     }
 })
 
 //Call to update frame
 export const updateFrame = action(function() {
+    if (game.isPaused) return;
 
-  store.frames++;
-  store.fgpos = (store.fgpos - 2) % 14;
-  fg1.cx = store.fgpos;  //Fg is observing the cx position not fgpos
-  fg2.cx = store.fgpos + fg_w;
+    store.frames++;
+    store.fgpos = (store.fgpos - 2) % 14;
+    fg1.cx = store.fgpos;  //Fg is observing the cx position not fgpos
+    fg2.cx = store.fgpos + fg_w;
 
-  updateBird(store.bird)
+    updateBird(store.bird)
 
-  if (  game.currentstate  === states.Game) {
-      updatePipe()
-  }
-
+    if (game.currentstate === states.Game) {
+        updatePipe()
+    }
 })

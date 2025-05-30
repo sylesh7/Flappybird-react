@@ -4,8 +4,10 @@ import './App.css';
 import {bg,fg, bird0, bird1, bird2, pipeN, pipeS, gameover, _ok_, splash, ready, tap} from './common/Sprite';
 import {width, height} from './common/common';
 import { observer} from 'mobx-react';
-import {rungame, states} from './store/store';
+import {rungame, states, game, togglePause} from './store/store';
 import startBtn from './res/start.png';
+import pauseBtn from './res/pause.png';
+import resumeBtn from './res/resume.png';
 import zero from './res/numbers/zero.png';
 import one from './res/numbers/one.png';
 import two from './res/numbers/two.png';
@@ -220,8 +222,32 @@ const ScoreDisplay = observer(({ score }) => {
   );
 });
 
-
-
+const PauseButton = observer(() => {
+  return (
+    <div style={{
+      position: 'absolute',
+      top: 5,
+      left: 5,
+      zIndex: 10000,
+      cursor: 'pointer',
+      pointerEvents: 'auto',
+      padding: '10px',
+      borderRadius: '50%',
+    }}
+    onClick={(e) => {
+      e.stopPropagation(); // Stop event from bubbling up
+      if (game.currentstate === states.Game) {
+        togglePause();
+      }
+    }}>
+      <img 
+        src={game.isPaused ? resumeBtn : pauseBtn} 
+        alt={game.isPaused ? "Resume" : "Pause"} 
+        style={{width: 40, height: 'auto'}} 
+      />
+    </div>
+  );
+});
 
 const App = observer(class App extends Component {
   componentDidMount() {
@@ -254,6 +280,7 @@ const App = observer(class App extends Component {
           { (currentstate === states.Splash) ? <ReadyAndTap /> : null }
           { fgs.map( (fg) => ( <Fg fg={fg} key={fg.id} /> )     )}
           { (currentstate === states.Game || currentstate === states.Score) ? <ScoreDisplay score={this.props.store.score} /> : null }
+          { currentstate === states.Game ? <PauseButton /> : null }
         </div>
         { currentstate === states.Score ? (
           <div className="gameover-ok-container">
