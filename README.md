@@ -65,9 +65,8 @@ Follow these instructions to run the project locally.
 ## Gameplay Instructions
 
 * Avoid hitting the top, bottom, or the pipes.
-* The score increases and you will recieve **coins** for each time you pass through a pair of pipes .
+* The score increases and you will recieve __coins__ for each time you pass through a pair of pipes .
 * The game ends when the bird collides with an obstacle.
-* For 
 
 ---
 
