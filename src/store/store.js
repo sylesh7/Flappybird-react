@@ -127,14 +127,19 @@ export const birdjump =  action(function(bird) {
 })
 
 export const rungame = action(function() {
-
-    store.bird = new bird(guid(),60,0)
-    store.fgpos = 0
-    store.frames = 1
-    store.pipes = observable([])  //Initalize to empty empty on game start
-    store.score = 0 // reset score
-    game.currentstate= states.Game
-
+    if (game.currentstate === states.Score) {
+        // If we're in score state, clear pipes and go back to splash
+        store.pipes = observable([]);  // Clear all pipes
+        game.currentstate = states.Splash;
+    } else {
+        // Otherwise start a new game
+        store.bird = new bird(guid(),60,0)
+        store.fgpos = 0
+        store.frames = 1
+        store.pipes = observable([])  //Initalize to empty empty on game start
+        store.score = 0 // reset score
+        game.currentstate = states.Game
+    }
 })
 
 //Call to update frame
