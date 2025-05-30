@@ -17,6 +17,7 @@ import seven from './res/numbers/seven.png';
 import eight from './res/numbers/eight.png';
 import nine from './res/numbers/nine.png';
 import menuBtn from './res/menu.png';
+import titleImg from './res/title.png';
 //ITs sucode
 
 const SpriteWrapper = observer(class SpriteWrapper extends Component {
@@ -128,10 +129,26 @@ export const Splash = observer(
 
 })
 
+const Title =  () =>(
+        <div style={{
+          marginTop: -290,
+          marginLeft:-0.5,
+          marginRight:-40,
+          display: 'flex',
+          justifyContent: 'center',
+          pointerEvents: 'auto',
+          cursor: 'pointer',
+        }}>
+          <img src={titleImg} alt="Flappy Bird" style={{width: 2400, height: 'auto'}} />
+        </div>
+      );
+    
+
 const StartButton = () => (
   <div style={{
-    marginTop: 220,
+    marginTop: 190,
     marginLeft:220,
+    marginBottom:-240,
     display: 'flex',
     justifyContent: 'center',
     pointerEvents: 'auto',
@@ -158,9 +175,13 @@ export const ReadyAndTap = observer(
           pointerEvents: 'none',
           zIndex: 5
         }}>
-          <SpriteWrapper gameSprite={{cx: 400/2 - 87, cy: -40}}>{ready}</SpriteWrapper>
+          <div style={{transform: 'scale(0.8)'}}>
+            <SpriteWrapper gameSprite={{cx: 400/2 - 143.25, cy: -40}}>{ready}</SpriteWrapper>
+          </div>
           <div style={{height: 16}} />
-          <SpriteWrapper gameSprite={{cx: 400/2 - 89.25, cy: 20}}>{tap}</SpriteWrapper>
+          <div style={{transform: 'scale(0.8)'}}>
+            <SpriteWrapper gameSprite={{cx: 400/2 - 120.25, cy: 20}}>{tap}</SpriteWrapper>
+          </div>
           <StartButton />
         </div>
       );
@@ -246,6 +267,7 @@ const App = observer(class App extends Component {
           { bgs.map( (bg) => ( <Bg bg={bg} key={bg.id} /> )     )}
           { pipes.map( (pipe) => (  <Pipe pipe={pipe} key={pipe.id} /> )   )}
           <Bird bird={bird} />
+          { (currentstate === states.Splash) ? <Title /> : null }
           { (currentstate === states.Splash) ? <Splash /> : null }
           { (currentstate === states.Splash) ? <ReadyAndTap /> : null }
           { fgs.map( (fg) => ( <Fg fg={fg} key={fg.id} /> )     )}
