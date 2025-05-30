@@ -340,7 +340,7 @@
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        backgroundImage: "linear-gradient(to bottom, #87CEEB, #FFFFFF), url('./background.jpg')",
+        backgroundImage: "linear-gradient(to bottom,#70C5CF, #FFFFFF), url('./background.jpg')",
         backgroundBlendMode: "overlay",
         backgroundSize: "cover",
         backgroundPosition: "center"
