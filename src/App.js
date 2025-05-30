@@ -16,7 +16,6 @@ import six from './res/numbers/six.png';
 import seven from './res/numbers/seven.png';
 import eight from './res/numbers/eight.png';
 import nine from './res/numbers/nine.png';
-import menuBtn from './res/menu.png';
 import titleImg from './res/title.png';
 //ITs sucode
 
@@ -132,9 +131,9 @@ export const Splash = observer(
 const Title =  () =>(
 
   <div style={{
-    marginTop: -290,
+    marginTop: -450,
     marginLeft:-0.5,
-    marginRight:-40,
+    marginRight:-60,
     display: 'flex',
     justifyContent: 'center',
     pointerEvents: 'auto',
@@ -142,7 +141,7 @@ const Title =  () =>(
     position: 'relative',
     zIndex: 9999
   }}>
-    <img src={titleImg} alt="Flappy Bird" style={{width: 2400, height: 'auto'}} />
+    <img src={titleImg} alt="Flappy Bird" style={{width: 4300, height: 1200}} />
   </div>
 );
 
@@ -204,7 +203,6 @@ const ScoreDisplay = observer(({ score }) => {
       zIndex: 9999,
       background: 'transparent',
       pointerEvents: 'none',
-      filter: 'drop-shadow(0 0 2px rgba(0,0,0,0.5))'
     }}>
       {digits.map((d, i) => (
         <img 
