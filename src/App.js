@@ -23,7 +23,6 @@ import normalcoin from './res/normalcoin.png';
 import bronzecoin from './res/bronzecoin.png';
 import silvercoin from './res/silvercoin.png';
 import goldcoin from './res/goldcoin.png';
-//ITs sucode
 
 const SpriteWrapper = observer(class SpriteWrapper extends Component {
 
