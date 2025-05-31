@@ -32,15 +32,6 @@ canvas {
     z-index: 10; /* Ensure game frame is above everything */
 }
 
-.App {
-  /* Remove fixed positioning and full-viewport size */
-  /* position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh; */
-}
-
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
