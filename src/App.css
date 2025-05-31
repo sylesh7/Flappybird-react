@@ -3,7 +3,7 @@ body, html {
     padding: 0;
     width: 100vw;
     height: 100vh;
-    overflow: hidden; /* Prevent scrolling */
+    overflow: hidden;
 }
 
 #root {
@@ -12,6 +12,7 @@ body, html {
     align-items: center;
     width: 100vw;
     height: 100vh;
+    position: relative;
 }
 
 canvas {
@@ -25,10 +26,10 @@ canvas {
     width: 400px;
     height: 650px;
     margin: auto;
-    border: 1px solid #000;
     background-color: #70C5CF;
     overflow: hidden;
     top: -50px; /* shift content up to reveal grass and lower pipes */
+    z-index: 10; /* Ensure game frame is above everything */
 }
 
 .App {

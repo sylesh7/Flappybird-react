@@ -62,7 +62,7 @@ const Fg = observer(
 })
 
 export const Bird = observer(
-   class Bird extends Component {
+  class Bird extends Component {
 
       render = () => {
           let wbird;
@@ -82,7 +82,7 @@ export const Bird = observer(
 
           return <SpriteWrapper gameSprite={this.props.bird}> {wbird} </SpriteWrapper>;
       }
-   }
+  }
 )
 
 const Pipe = observer(
@@ -148,6 +148,35 @@ const Title =  () =>(
     zIndex: 9999
   }}>
     <img src={titleImg} alt="Flappy Bird" style={{width: 4300, height: 1200}} />
+  </div>
+);
+const FlappySolTitle = () => (
+  <div style={{
+    position: 'absolute',
+    top: '5px',
+    left: '-545px',
+    fontSize: '38px',
+    fontWeight: '400',
+    color: '#FFFFFF',
+    textShadow: `
+      2px 2px 0px #000000,
+      -1px -1px 0px #000000,
+      1px -1px 0px #000000,
+      -1px 1px 0px #000000,
+      1px 1px 0px #000000,
+      3px 3px 8px rgba(0,0,0,0.8),
+      5px 5px 15px rgba(0,0,0,0.5)
+    `,
+    fontFamily: '"Dancing Script", "Pacifico", "Great Vibes", "Allura", "Alex Brush", cursive',
+    zIndex: 10000,
+    pointerEvents: 'none',
+    letterSpacing: '2px',
+    fontStyle: 'italic',
+    filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.6))',
+    transform: 'rotate(0deg)',
+    whiteSpace: 'nowrap'
+  }}>
+    FlappySol
   </div>
 );
 
@@ -290,48 +319,65 @@ const CoinDisplay = observer(({ score }) => {
 });
 
 const App = observer(class App extends Component {
-  componentDidMount() {
+componentDidMount() {
+  this.req = window.requestAnimationFrame(this.appUpdateFrame);
+}
 
-    this.req = window.requestAnimationFrame(this.appUpdateFrame)
+appUpdateFrame = () => {
+  this.props.updateFrame();
+  this.req = window.requestAnimationFrame(this.appUpdateFrame);
+}
 
-  }
+render() {
+  const {bgs, fgs, bird, pipes} = this.props.store;
+  const { currentstate } = this.props.game;
 
-  //Call to store to update the frame
-  appUpdateFrame = () => {
-
-    this.props.updateFrame(); //this will trigger mobx to update the view when observable value change
-
-    this.req = window.requestAnimationFrame(this.appUpdateFrame) //rerun this function again when browser is ready to update new frame
-
-  }
-
-  render() {
-    const {bgs, fgs, bird, pipes} = this.props.store
-    const { currentstate } = this.props.game;
-
-    return (
-      <div style={{position: "relative", width: 400, height: 650, top: 0}}>
+  return (
+    <div style={{
+      position: "relative",
+      width: "100vw",
+      height: "100vh",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center"
+    }}>
+      <div className="background-container" />
+      {/* FlappySol title positioned outside the game frame */}
+      <FlappySolTitle />
+      
+      <div style={{
+        position: "relative",
+        width: 400,
+        height: 650,
+        backgroundColor: "#70C5CF",
+        border: "3px solid #FFD700",
+        borderRadius: "15px",
+        overflow: "hidden"
+      }}>
         <div className="App" id="fakingcanvas" style={{top: 0}}>
-          { bgs.map( (bg) => ( <Bg bg={bg} key={bg.id} /> )     )}
-          { pipes.map( (pipe) => (  <Pipe pipe={pipe} key={pipe.id} /> )   )}
+          {bgs.map((bg) => (<Bg bg={bg} key={bg.id} />))}
+          {pipes.map((pipe) => (<Pipe pipe={pipe} key={pipe.id} />))}
           <Bird bird={bird} />
-          { (currentstate === states.Splash) ? <Title /> : null }
-          { (currentstate === states.Splash) ? <Splash /> : null }
-          { (currentstate === states.Splash) ? <ReadyAndTap /> : null }
-          { fgs.map( (fg) => ( <Fg fg={fg} key={fg.id} /> )     )}
-          { (currentstate === states.Game || currentstate === states.Score) ? <ScoreDisplay score={this.props.store.score} /> : null }
-          { (currentstate === states.Game || currentstate === states.Score) ? <CoinDisplay score={this.props.store.score} /> : null }
-          { currentstate === states.Game ? <PauseButton /> : null }
+          {(currentstate === states.Splash) ? <Title /> : null}
+          {(currentstate === states.Splash) ? <Splash /> : null}
+          {(currentstate === states.Splash) ? <ReadyAndTap /> : null}
+          {fgs.map((fg) => (<Fg fg={fg} key={fg.id} />))}
+          {(currentstate === states.Game || currentstate === states.Score) ? 
+            <ScoreDisplay score={this.props.store.score} /> : null}
+          {(currentstate === states.Game || currentstate === states.Score) ? 
+            <CoinDisplay score={this.props.store.score} /> : null}
+          {currentstate === states.Game ? <PauseButton /> : null}
         </div>
-        { currentstate === states.Score ? (
-          <div className="gameover-ok-container">
-            <div className="gameover-image">{gameover}</div>
-            <div className="ok-button" onClick={rungame}>{_ok_}</div>
-          </div>
-        ) : null }
       </div>
-    );
-  }
-})
 
+      {currentstate === states.Score ? (
+        <div className="gameover-ok-container">
+          <div className="gameover-image">{gameover}</div>
+          <div className="ok-button" onClick={rungame}>{_ok_}</div>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+})
 export default App
