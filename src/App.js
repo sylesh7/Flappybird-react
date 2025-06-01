@@ -103,14 +103,6 @@ const Pipe = observer(
   }
 })
 
-const Gameover = observer(
-  class Gameover extends Component {
-
-  render = () => {
-      return <SpriteWrapper gameSprite={{cx: width/2 - 94, cy: height-400}}> {gameover} </SpriteWrapper>;
-  }
-
-})
 
 export const OK = observer(
   class OK extends Component {
@@ -147,35 +139,6 @@ const Title =  () =>(
     zIndex: 9999
   }}>
     <img src={titleImg} alt="Flappy Bird" style={{width: 4300, height: 1200}} />
-  </div>
-);
-const FlappySolTitle = () => (
-  <div style={{
-    position: 'absolute',
-    top: '5px',
-    left: '-545px',
-    fontSize: '38px',
-    fontWeight: '400',
-    color: '#FFFFFF',
-    textShadow: `
-      2px 2px 0px #000000,
-      -1px -1px 0px #000000,
-      1px -1px 0px #000000,
-      -1px 1px 0px #000000,
-      1px 1px 0px #000000,
-      3px 3px 8px rgba(0,0,0,0.8),
-      5px 5px 15px rgba(0,0,0,0.5)
-    `,
-    fontFamily: '"Dancing Script", "Pacifico", "Great Vibes", "Allura", "Alex Brush", cursive',
-    zIndex: 10000,
-    pointerEvents: 'none',
-    letterSpacing: '2px',
-    fontStyle: 'italic',
-    filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.6))',
-    transform: 'rotate(0deg)',
-    whiteSpace: 'nowrap'
-  }}>
-    FlappySol
   </div>
 );
 
@@ -342,7 +305,7 @@ render() {
     }}>
       <div className="background-container" />
       {/* FlappySol title positioned outside the game frame */}
-      <FlappySolTitle />
+      
       
       <div style={{
         position: "relative",
