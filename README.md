@@ -1,9 +1,17 @@
 
 ---
 
-# Flappy Bird Clone - React
+# Flappy Bird - React
 
 This project is a simple clone of the classic **Flappy Bird** game built using **React.js**. It demonstrates the use of React state, component lifecycle, and key event handling to recreate the core gameplay mechanics of Flappy Bird.
+
+---
+
+## Screenshots
+
+![Screenshot (11)](https://github.com/user-attachments/assets/b5628670-9ca5-4178-8a64-99b3c3795952)
+
+![Screenshot (16)](https://github.com/user-attachments/assets/8b1ce254-1932-4db2-9243-95764b53508e)
 
 ---
 
